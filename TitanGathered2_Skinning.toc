@@ -1,0 +1,13 @@
+## Interface: 80100
+## Title: Titan Panel [|cffeda55fTG 2 Skinning|r] |cff00aa004.4.0.80100|r
+## Notes: Tracking materials and trade items in your bags and bank.
+## Version: 4.4.0
+## X-Date: 2018-01-15
+## Author: bajtlamer@gmail.com
+## SavedVariables: tgsPluginDb
+## OptionalDeps:
+## Dependencies: Titan, TitanGathered2
+## Version: 4.4.0.80100
+
+
+TitanGathered2_Skinning.xml
