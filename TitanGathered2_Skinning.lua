@@ -1,4 +1,4 @@
-TITAN_ORES_ID = "Skinning"
+TITAN_SKINNING_ID = "Skinning"
 tgsPluginDb = {}
 
 TitanGathered2_Skinning = {}
@@ -7,7 +7,7 @@ local tgs = TitanGathered2_Skinning
 local infoBoardData = {}
 local tg = TitanGathered2
 
-tgs.id = TITAN_ORES_ID
+tgs.id = TITAN_SKINNING_ID
 tgs.addon = "TitanGathered2_Skinning"
 tgs.email = "bajtlamer@gmail.com"
 tgs.www = "www.rrsoft.cz"
@@ -27,7 +27,9 @@ function tgs.Button_OnLoad(self)
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LEAVING_WORLD")
+    self:RegisterEvent("UNIT_SPELLCAST_STOP")
     self:RegisterEvent("LOOT_OPENED")
+    TGS_SKINABLES = tg.getVar("tgs_skinables")
     tgs.registerPlugin()
     tgs.registerPluginMinable()
 end
@@ -37,21 +39,65 @@ function tgs.registerPlugin()
 end
 
 function tgs.registerPluginMinable()
-    for _, _m in pairs(TGS_MINABLES)do
+    for _, _m in pairs(TGS_SKINABLES)do
         table.insert(TG_MINABLES, _m)
     end
 end
 
 -- Event
 function tgs.Button_OnEvent(self, event)
-    -- EMPTY
+    if(event == "UNIT_SPELLCAST_STOP")then
+        tgs.spellCastStopped(self)
+    end
+    if(event == "LOOT_OPENED")then
+        -- tgs.checkIfSkinnable()
+    end
 end
 
 function tgs.getGatherableSourceObject(objectId)
-    for _, _m in pairs(TGS_MINABLES) do
+    local minables = tg.getVar("tgs_skinables")
+    for _, _m in pairs(minables) do
         if (_m.id == objectId) then
             return _m
         end
     end
     return {id = objectId, name = nil}
+end
+
+function tgs.getMinables()
+    return tg.getVar("tgs_skinables")
+end
+
+function tgs.spellCastStopped()
+    local minable = {}
+    if( UnitName("target"))then
+        local name = UnitName("target");
+        local guid = UnitGUID("target");
+        local ctype = UnitCreatureType("target")
+        local intID = getIDformGUIDString(guid)
+
+        if(ctype == "Beast")then
+            minable.id = intID
+            minable.name = name
+            tgs.updateMinable(minable)
+        end
+    end
+end
+
+function tgs.updateMinable(obj)
+    local minables = tg.getVar("tgs_skinables")
+
+    for _, minable in pairs(minables)do
+        if(minable.name == obj.name)then 
+            dump("Already exist, exiting...")
+            return 
+        end
+    end
+    -- if(found == 1)then
+        table.insert(minables, obj)
+        TitanGathered2_PrintDebug("Skinable item inserted:"..obj.name)
+    -- end
+
+    tg.setVar("tgs_skinables", minables)
+    TGS_SKINABLES = minables
 end

@@ -10,7 +10,7 @@
 				TitanGathered2_Skinning.Button_OnLoad(self);
 			</OnLoad>
 			<OnEvent>
-				TitanGathered2_Skinning.Button_OnEvent(self, event, ...);
+				TitanGathered2_Skinning.Button_OnEvent(self, event, ...)
 			</OnEvent>
 		</Scripts>
 	</Frame>
