@@ -74,9 +74,9 @@ function tgs.getMinables()
 end
 
 function tgs.spellCastStopped(self)
-    tgPrint("players cast", self.lastCast)
+    -- tgPrint("players cast", self.lastCast)
     local minable = {}
-    if(self.lastCast ~= "Skinning") then return
+    if(self.lastCast ~= "Skinning") then return end
         
     if( UnitName("target"))then
         local name = UnitName("target");
