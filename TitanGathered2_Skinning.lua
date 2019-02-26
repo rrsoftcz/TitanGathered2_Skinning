@@ -6,6 +6,7 @@ TitanGathered2_Skinning = {}
 local tgs = TitanGathered2_Skinning
 local infoBoardData = {}
 local tg = TitanGathered2
+local lastCast = nil
 
 tgs.id = TITAN_SKINNING_ID
 tgs.addon = "TitanGathered2_Skinning"
@@ -29,6 +30,7 @@ function tgs.Button_OnLoad(self)
 	self:RegisterEvent("PLAYER_LEAVING_WORLD")
     self:RegisterEvent("UNIT_SPELLCAST_STOP")
     self:RegisterEvent("LOOT_OPENED")
+    self:RegisterUnitEvent("UNIT_SPELLCAST_START", unit);
     TGS_SKINABLES = tg.getVar("tgs_skinables")
     tgs.registerPlugin()
     tgs.registerPluginMinable()
@@ -46,6 +48,9 @@ end
 
 -- Event
 function tgs.Button_OnEvent(self, event)
+    if(event == "UNIT_SPELLCAST_START")then
+        self.lastCast = UnitCastingInfo("player")
+    end
     if(event == "UNIT_SPELLCAST_STOP")then
         tgs.spellCastStopped(self)
     end
@@ -68,8 +73,11 @@ function tgs.getMinables()
     return tg.getVar("tgs_skinables")
 end
 
-function tgs.spellCastStopped()
+function tgs.spellCastStopped(self)
+    tgPrint("players cast", self.lastCast)
     local minable = {}
+    if(self.lastCast ~= "Skinning") then return
+        
     if( UnitName("target"))then
         local name = UnitName("target");
         local guid = UnitGUID("target");

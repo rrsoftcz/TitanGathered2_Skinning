@@ -97,6 +97,7 @@ TG_DB_SCALES = {
   { tag = "124115" , name = "Stormscale" , cat = TG_CAT_SCALES, skill = 1},
   { tag = "153050" , name = "Shimmerscale" , cat = TG_CAT_SCALES, skill = 1},
   { tag = "153051" , name = "Mistscale" , cat = TG_CAT_SCALES, skill = 1},
+  { tag = "161433" , name = "Thick Webbing" , cat = TG_CAT_SCALES, skill = 1},
 }
 
 TGS_PLUGIN_CATEGORIES = {
