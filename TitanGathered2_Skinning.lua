@@ -28,8 +28,6 @@ function tgs.Button_OnLoad(self)
 
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("PLAYER_LEAVING_WORLD")
-    self:RegisterEvent("UNIT_SPELLCAST_STOP")
-    self:RegisterEvent("LOOT_OPENED")
     self:RegisterUnitEvent("UNIT_SPELLCAST_START", unit);
     self:RegisterUnitEvent("UNIT_SPELLCAST_SUCCEEDED", unit);
     TGS_SKINABLES = tg.getVar("tgs_skinables")
@@ -55,12 +53,6 @@ function tgs.Button_OnEvent(self, event)
     if(event == "UNIT_SPELLCAST_SUCCEEDED")then
         tgs.OnEvent_SpellcastSucceed(self)
     end
-    -- if(event == "UNIT_SPELLCAST_STOP")then
-    --     tgs.OnEvent_SpellcastSucceed(self)
-    -- end
-    -- if(event == "LOOT_OPENED")then
-        -- tgs.checkIfSkinnable()
-    -- end
 end
 
 function tgs.getGatherableSourceObject(objectId)
@@ -78,34 +70,18 @@ function tgs.getMinables()
 end
 
 function tgs.OnEvent_SpellCastStart(self)
-    self.isLastCastSkinning = (UnitCastingInfo("player") == "Skinning") of nil
-    -- self.isLastCastSkinning = _spell
-    -- local _spell = UnitCastingInfo("player")
-    -- if(_spell == "Skinning") then 
-    --     self.isLastCastSkinning = _spell
-    -- else
-    --     self.isLastCastSkinning = nil
-    -- end
+    self.isLastCastSkinning = (UnitCastingInfo("player") == "Skinning") or nil
 end
 
 function tgs.OnEvent_SpellcastSucceed(self)
     local minable = {}
     if(self.isLastCastSkinning == true) then 
-        local target = tgs.getPlayersTarget()
-        -- self.isLastCastSkinning = nil
-        -- tgPrint("spell is:", self.isLastCastSkinning)
-        -- if( UnitName("target"))then
-        --     local name = UnitName("target");
-        --     local guid = UnitGUID("target");
-        --     local ctype = UnitCreatureType("target")
-        --     local intID = getIDformGUIDString(guid)
-
-            if(target ~= nil and target.utype == "Beast")then
-                minable.id = target.id
-                minable.name = target.name
-                tgs.updateMinable(minable)
-            end
-        -- end
+        local target = tg.getPlayersTarget()
+        if(target ~= nil and target.utype == "Beast")then
+            minable.id = target.id
+            minable.name = target.name
+            tgs.updateMinable(minable)
+        end
     end
     self.isLastCastSkinning = nil
 end
@@ -119,29 +95,10 @@ function tgs.updateMinable(obj)
             return 
         end
     end
-    -- if(found == 1)then
-        table.insert(_minables, obj)
-        TitanGathered2_PrintDebug("Skinable target inserted:"..obj.name)
-    -- end
+
+    table.insert(_minables, obj)
+    TitanGathered2_PrintDebug("Skinable target inserted:"..obj.name)
 
     tg.setVar("tgs_skinables", _minables)
     TGS_SKINABLES = _minables
-end
-
-function tgs.getPlayersTarget()
-    local target = {}
-    local unitName = UnitName("target") or nil
-    if(not unitName)then return nil end
-    
-    local targtUID = UnitGUID("target") or nil
-    local trgtType = UnitCreatureType("target") or nil
-    local targetId = getIDformGUIDString(targtUID)
-
-    if( trgtType )then
-        target.name = unitName
-        target.id = targetId
-        target.utype = trgtType
-        return target
-    end
-    return nil
 end
