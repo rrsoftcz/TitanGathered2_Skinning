@@ -16,6 +16,11 @@ TG_DB_HIDES = {
   { tag = "112182" , name = "Patch of Fel Hide" , cat = TG_CAT_HIDES, skill = 1},
   { tag = "124113" , name = "Stonehide Leather" , cat = TG_CAT_HIDES, skill = 1},
   { tag = "154722" , name = "Tempest Hide" , cat = TG_CAT_HIDES, skill = 1},
+  -- SHA 9.2 --
+  { tag = "172094" , name = "Callous Hide" , cat = TG_CAT_HIDES, skill = 1},
+  { tag = "172092" , name = "Pallid Bone" , cat = TG_CAT_HIDES, skill = 1},
+  { tag = "177279" , name = "Gaunt Sinew" , cat = TG_CAT_HIDES, skill = 1},
+  { tag = "172097" , name = "Heavy Callous Hide" , cat = TG_CAT_HIDES, skill = 1},
 }
 
 TG_DB_LEATHERS = {
@@ -62,6 +67,14 @@ TG_DB_LEATHERS = {
   { tag = "154897" , name = "Stringy Loins" , cat = TG_CAT_LEATHERS, skill = 1},
   { tag = "154899" , name = "Thick Paleo Steak" , cat = TG_CAT_LEATHERS, skill = 1},
   { tag = "160502" , name = "Chemical Blasting Cap" , cat = TG_CAT_LEATHERS, skill = 1},
+  -- SHA 9.2 --
+  { tag = "172093" , name = "Desolate Leather Scraps" , cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "172089" , name = "Desolate Leather" ,        cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "309217" , name = "Purified Leather" ,        cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "309216" , name = "Necrotic Leather" ,        cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "309214" , name = "Unseelie Leather" ,        cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "309215" , name = "Sinful Leather" ,          cat = TG_CAT_LEATHERS, skill = 1},
+  { tag = "172096" , name = "Heavy Desolate Leather" ,  cat = TG_CAT_LEATHERS, skill = 1},
 }
 
 TG_DB_SCALES = {
